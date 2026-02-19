@@ -1,0 +1,30 @@
+name: Update Holidays
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 1 * *"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile=false
+      - run: pnpm update:holidays
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore: update official holiday data"
+          branch: chore/update-holiday-data
+          title: "chore: update official holiday data"
+          body: "Automated update from e-Gov official dataset."

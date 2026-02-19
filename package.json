@@ -1,0 +1,17 @@
+{
+  "name": "@liha-labs/holiday-repo",
+  "private": true,
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "dev:site": "pnpm -C apps/site dev",
+    "build": "pnpm -r --filter ./packages/* build",
+    "typecheck": "pnpm -r --filter ./packages/* typecheck",
+    "update:holidays": "tsx scripts/holiday/update-from-official.ts",
+    "generate:holidays": "tsx scripts/holiday/build-window.ts"
+  },
+  "devDependencies": {
+    "iconv-lite": "^0.6.3",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
+  }
+}
