@@ -1,0 +1,54 @@
+name: Release holiday
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/holiday/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'package.json'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build package
+        run: pnpm --filter @liha-labs/holiday build
+
+      - name: Publish @liha-labs/holiday (OIDC)
+        working-directory: packages/holiday
+        env:
+          NODE_AUTH_TOKEN: ''
+          NPM_TOKEN: ''
+          NPM_CONFIG_USERCONFIG: /dev/null
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+
+          if npm view @liha-labs/holiday@"$VERSION" version >/dev/null 2>&1; then
+            echo "Already published: @liha-labs/holiday@$VERSION"
+            exit 0
+          fi
+
+          npm publish --access public --provenance
