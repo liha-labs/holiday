@@ -1,0 +1,65 @@
+# @liha-labs/holiday Full Documentation
+
+`@liha-labs/holiday` is a TypeScript library for Japanese holidays based on official data.
+
+## Principles
+
+- No holiday calculation logic (official data is the source of truth)
+- Runtime dependency: zero
+- Date string input is strict (`YYYY-MM-DD` only, plus `YYYY-MM` for `listMonth`)
+- `Date` input is normalized by local date parts
+
+## Core Types
+
+```ts
+type Holiday = { date: 'YYYY-MM-DD'; name: string }
+type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6
+type HolidayDetail = Holiday & { weekday: Weekday }
+```
+
+## APIs
+
+```ts
+holidayName(input: Date | string): Promise<string | null>
+isHoliday(input: Date | string): Promise<boolean>
+getHoliday(input: Date | string): Promise<HolidayDetail | null>
+
+listYear(year: number): Promise<HolidayDetail[]>
+listMonth(ym: `${number}-${string}`): Promise<HolidayDetail[]>
+listRange(start: Date | string, end: Date | string): Promise<HolidayDetail[]>
+listAll(): Promise<HolidayDetail[]>
+
+createClient(options?: ClientOptions): HolidayClient
+info(): Info
+```
+
+## Entries
+
+- `@liha-labs/holiday`: default entry (bundled years + remote year-json for out-of-window years)
+- `@liha-labs/holiday/full`: full entry (local-only)
+
+## ClientOptions
+
+```ts
+type ClientOptions = {
+  remoteBaseUrl?: string
+  fetch?: typeof globalThis.fetch
+  cache?: 'memory' | 'none'
+}
+```
+
+## Behavior Notes
+
+- `weekday` is computed at runtime by `new Date(y, m - 1, d).getDay()`
+- invalid date strings throw errors (no silent parsing)
+- `listRange` is end-inclusive
+
+## Example
+
+```ts
+import { createClient, getHoliday } from '@liha-labs/holiday'
+
+const client = createClient({ cache: 'memory' })
+const detail = await getHoliday('2026-01-01')
+const yearData = await client.listYear(2023)
+```

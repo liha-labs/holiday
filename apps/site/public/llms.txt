@@ -1,0 +1,28 @@
+# @liha-labs/holiday
+
+> Official-data Japanese holiday library for TypeScript.
+
+## Links
+
+- [Documentation](https://holiday.liha.dev/)
+- [Full Documentation for AI](https://holiday.liha.dev/llms-full.txt)
+- [Repository](https://github.com/liha-labs/holiday)
+
+## Features
+
+- Official-data first (no holiday calculation logic)
+- Strict input validation (`YYYY-MM-DD`, `YYYY-MM`)
+- `holidayName` / `isHoliday` / `getHoliday` / `list*`
+- `weekday` is attached at runtime
+- `createClient` for `remoteBaseUrl` / `fetch` / `cache`
+- `@liha-labs/holiday/full` entry
+
+## Usage Summary
+
+```ts
+import { holidayName, getHoliday, listMonth } from '@liha-labs/holiday'
+
+const name = await holidayName('2026-01-01')
+const detail = await getHoliday('2026-01-01')
+const jan = await listMonth('2026-01')
+```

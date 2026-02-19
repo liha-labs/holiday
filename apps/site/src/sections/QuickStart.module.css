@@ -1,0 +1,56 @@
+/* Steps */
+.step {
+  margin-bottom: 8rem;
+}
+
+.stepInfo {
+  margin-bottom: 2.5rem;
+}
+
+.stepNumber {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-mute);
+  display: block;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+.step h4 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.step p {
+  color: var(--text-mute);
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+
+
+/* Pitfall Box */
+.pitfall {
+  background: #fff9f9;
+  border: 1px solid #ffecec;
+  border-left: 4px solid #ff4d4d;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  margin: 1.5rem 0 0 0;
+}
+
+.pitfall h5 {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  color: #d00;
+}
+
+.pitfall p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #444;
+}
