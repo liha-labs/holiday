@@ -1,4 +1,4 @@
-export const GENERATED_AT = "2026-02-19T09:36:37.717Z";
+export const GENERATED_AT = "2026-10-01T09:35:15.576Z";
 export const DATASET_ID = "cao_20190522_0002" as const;
 export const CKAN_ENDPOINT = "https://data.e-gov.go.jp/data/api/action/package_show?id=cao_20190522_0002" as const;
 export const DEFAULT_REMOTE_BASE_URL = "https://raw.githubusercontent.com/liha-labs/holiday/main";
